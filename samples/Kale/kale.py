@@ -62,7 +62,7 @@ class BalloonConfig(Config):
     Derives from the base Config class and overrides some values.
     """
     # Give the configuration a recognizable name
-    NAME = "kaleweek2"
+    NAME = "KaleWeek"
 
     # We use a GPU with 12GB memory, which can fit two images.
     # Adjust down if you use a smaller GPU.
@@ -72,7 +72,7 @@ class BalloonConfig(Config):
     NUM_CLASSES = 1 + 1 + 1 # Background + kaleweek2 + kaleweek3
 
     # Number of training steps per epoch
-    STEPS_PER_EPOCH = 50
+    STEPS_PER_EPOCH = 5
 
     # Skip detections with < 90% confidence
     DETECTION_MIN_CONFIDENCE = 0.9
@@ -90,8 +90,8 @@ class BalloonDataset(utils.Dataset):
         subset: Subset to load: train or val
         """
         # Add classes. We have only one class to add.
-        self.add_class("KaleWeek2", 1, "KaleWeek2")
-        self.add_class("KaleWeek3", 2, "KaleWeek3")
+        self.add_class("KaleWeek", 1, "KaleWeek2")
+        self.add_class("KaleWeek", 2, "KaleWeek3")
 
         # Train or validation dataset?
         assert subset in ["train", "val"]
@@ -202,7 +202,7 @@ def train(model):
     print("Training network heads")
     model.train(dataset_train, dataset_val,
                 learning_rate=config.LEARNING_RATE,
-                epochs=3,
+                epochs=1,
                 layers='heads')
 
 
