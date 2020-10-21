@@ -90,8 +90,9 @@ class BalloonDataset(utils.Dataset):
         subset: Subset to load: train or val
         """
         # Add classes. We have only one class to add.
-        self.add_class("KaleWeek", 1, "KaleWeek2")
-        self.add_class("KaleWeek", 2, "KaleWeek3")
+        self.add_class("KaleWeek", 1, "KaleWeek3")
+        self.add_class("KaleWeek", 2, "KaleWeek2")
+        
 
         # Train or validation dataset?
         assert subset in ["train", "val"]
