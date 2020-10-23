@@ -132,6 +132,14 @@ class BalloonDataset(utils.Dataset):
             else:
                 polygons = [r['shape_attributes'] for r in a['regions']] 
 
+            #Get the name of the class id
+            if type(a['regions']) is dict:
+                class_ids = [r['KaleWeek'] for r in a['region_attributes'].values()]
+            else:
+                class_ids = [r['KaleWeek'] for r in a['region_attributes']]
+
+
+
             # load_mask() needs the image size to convert polygons to masks.
             # Unfortunately, VIA doesn't include it in JSON, so we must read
             # the image. This is only managable since the dataset is tiny.
