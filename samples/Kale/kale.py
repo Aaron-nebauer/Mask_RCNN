@@ -133,7 +133,7 @@ class BalloonDataset(utils.Dataset):
                 polygons = [r['shape_attributes'] for r in a['regions']] 
 
             #Get the name of the class id
-            objects = [s['region_attributes'] for s in a['regions'].values()]
+            objects = [s['region_attributes'] for s in a['regions']]
 
             num_ids=[]
             for n in objects:
