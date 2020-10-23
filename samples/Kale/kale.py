@@ -72,7 +72,7 @@ class BalloonConfig(Config):
     NUM_CLASSES = 1 + 2 # Background + kaleweek2 + kaleweek3
 
     # Number of training steps per epoch
-    STEPS_PER_EPOCH = 50
+    STEPS_PER_EPOCH = 25
 
     # Skip detections with < 90% confidence
     DETECTION_MIN_CONFIDENCE = 0.9
@@ -90,8 +90,8 @@ class BalloonDataset(utils.Dataset):
         subset: Subset to load: train or val
         """
         # Add classes. We have only one class to add.
-        self.add_class("KaleWeek", 1, "KaleWeek3")
-        self.add_class("KaleWeek", 2, "KaleWeek2")
+        self.add_class("KaleWeek", 1, "KaleWeek2")
+        self.add_class("KaleWeek", 2, "KaleWeek3")
         
 
         # Train or validation dataset?
@@ -133,12 +133,21 @@ class BalloonDataset(utils.Dataset):
                 polygons = [r['shape_attributes'] for r in a['regions']] 
 
             #Get the name of the class id
-            if type(a['regions']) is dict:
-                class_ids = [r['KaleWeek'] for r in a['region_attributes'].values()]
-            else:
-                class_ids = [r['KaleWeek'] for r in a['region_attributes']]
+            objects = [s['region_attributes'] for s in a['regions'].values()]
 
-
+            num_ids=[]
+            for n in objects:
+                #print(n)
+                #print(type(n))
+                try:
+                    if n['object_name']=='KaleWeek2':
+                        num_ids.append(1)
+                    elif n['object_name']=='KaleWeek3':
+                        num_ids.append(2)
+                except:
+                    pass
+        	
+        #num_ids = [int(n['object_name']) for n in objects]
 
             # load_mask() needs the image size to convert polygons to masks.
             # Unfortunately, VIA doesn't include it in JSON, so we must read
@@ -156,7 +165,7 @@ class BalloonDataset(utils.Dataset):
                 path=image_path,
                 width=width, height=height,
                 polygons=polygons,
-                class_ids=class_ids)
+                num_ids=num_ids)
 
     def load_mask(self, image_id):
         """Generate instance masks for an image.
@@ -182,7 +191,7 @@ class BalloonDataset(utils.Dataset):
 
         # Return mask, and array of class IDs of each instance. Since we have
         # one class ID only, we return an array of 1s
-        return mask, info['class_ids']
+        return mask, num_ids
 
     def image_reference(self, image_id):
         """Return the path of the image."""
