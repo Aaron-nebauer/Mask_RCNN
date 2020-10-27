@@ -3,7 +3,7 @@ scipy
 Pillow
 cython
 matplotlib
-scikit-image==0.13.1
+scikit-image
 tensorflow==1.14
 keras==2.1.5
 opencv-python
