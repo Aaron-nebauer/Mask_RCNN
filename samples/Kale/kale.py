@@ -179,6 +179,7 @@ class BalloonDataset(utils.Dataset):
         if info["source"] != "KaleWeek":
             return super(self.__class__, self).load_mask(image_id)
         num_ids = info['num_ids']
+        print(num_ids)
 
         # Convert polygons to a bitmap mask of shape
         # [height, width, instance_count]
