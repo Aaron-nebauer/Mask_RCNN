@@ -72,7 +72,7 @@ class BalloonConfig(Config):
     NUM_CLASSES = 1 + 2 # Background + kaleweek2 + kaleweek3
 
     # Number of training steps per epoch
-    STEPS_PER_EPOCH = 25
+    STEPS_PER_EPOCH = 50
 
     # Skip detections with < 90% confidence
     DETECTION_MIN_CONFIDENCE = 0.9
@@ -246,7 +246,7 @@ def train(model):
     print("Training network heads")
     model.train(dataset_train, dataset_val,
                 learning_rate=config.LEARNING_RATE,
-                epochs=1,
+                epochs=2,
                 layers='heads')
 
 
