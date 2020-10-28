@@ -137,8 +137,8 @@ class BalloonDataset(utils.Dataset):
 
             num_ids=[]
             for n in objects:
-                #print(n)
-                #print(type(n))
+                print("What n is: ",n)
+                print(type(n))
                 try:
                     if n['KaleWeek']=='KaleWeek2':
                         num_ids.append(1)
