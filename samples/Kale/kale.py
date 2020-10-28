@@ -199,7 +199,7 @@ class BalloonDataset(utils.Dataset):
         if info["source"] != "KaleWeek":
             return super(self.__class__, self).load_mask(image_id)
         num_ids = info['num_ids']
-        print("Load Mask num ids: ", num_ids)
+        #print("Load Mask num ids: ", num_ids)
 
         # Convert polygons to a bitmap mask of shape
         # [height, width, instance_count]
@@ -215,7 +215,7 @@ class BalloonDataset(utils.Dataset):
         # one class ID only, we return an array of 1s
         num_ids = np.array(num_ids, dtype=np.int32)
         #return mask, num_ids
-        print("LAST load mask num ids:", num_ids)
+        #print("LAST load mask num ids:", num_ids)
         return mask.astype(np.bool), num_ids
 
     def image_reference(self, image_id):
