@@ -154,13 +154,13 @@ class BalloonDataset(utils.Dataset):
                         print("KALEWEEK3")
                     else:
                         print("NO WEEK")'''
-                try:
-                    if n[x]==two:
-                        num_ids.append(1)
-                    elif n[x]==three:
-                        num_ids.append(2)
+                if n[x]==two:
+                    num_ids.append(1)
                     print("SUCCESS")
-                except:
+                elif n[x]==three:
+                    num_ids.append(2)
+                    print("SUCCESS")
+                else:
                     print("PASS")
 
 
