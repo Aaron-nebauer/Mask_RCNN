@@ -136,8 +136,9 @@ class BalloonDataset(utils.Dataset):
             objects = [s['region_attributes'] for s in a['regions']]
             print("Objects: ",objects)
             num_ids=[]
-            two = "KaleWeek2"
-            three = "KaleWeek3"
+            two = "kaleWeek2"
+            three = "kaleWeek3"
+            
             for n in objects:
                 '''print("What n is: ",n)
                 print(type(n))
