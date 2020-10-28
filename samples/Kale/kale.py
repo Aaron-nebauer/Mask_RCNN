@@ -146,7 +146,7 @@ class BalloonDataset(utils.Dataset):
                         num_ids.append(2)
                 except:
                     pass
-        	
+        	print("Num ids: ",num_ids)
         #num_ids = [int(n['object_name']) for n in objects]
 
             # load_mask() needs the image size to convert polygons to masks.
@@ -179,7 +179,7 @@ class BalloonDataset(utils.Dataset):
         if info["source"] != "KaleWeek":
             return super(self.__class__, self).load_mask(image_id)
         num_ids = info['num_ids']
-        print(num_ids)
+        print("Load Mask num ids: "num_ids)
 
         # Convert polygons to a bitmap mask of shape
         # [height, width, instance_count]
@@ -193,8 +193,10 @@ class BalloonDataset(utils.Dataset):
 
         # Return mask, and array of class IDs of each instance. Since we have
         # one class ID only, we return an array of 1s
-        num_ids = np.array(num_ids, dtype=np.int32)
-        return mask, num_ids
+        #num_ids = np.array(num_ids, dtype=np.int32)
+        #return mask, num_ids
+
+        return mask.astype(np.bool), np.ones([mask.shape[-1]], dtype=np.int32)
 
     def image_reference(self, image_id):
         """Return the path of the image."""
