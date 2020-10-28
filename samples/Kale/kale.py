@@ -141,10 +141,19 @@ class BalloonDataset(utils.Dataset):
                 print(type(n))
                 for x in n:
                     print("x: ",x)
+                    y = n[x]
+                    print("y: ",y)
+                    try:
+                        if y == "KaleWeek2":
+                            print("KALEWEEK2")
+                        elif y == "KaleWeek3":
+                            print("KALEWEEK3")
+                    except:
+                        print("NO WEEK")
                 try:
-                    if n['KaleWeek']=='KaleWeek2':
+                    if n[x]=='KaleWeek2':
                         num_ids.append(1)
-                    elif n['KaleWeek']=='KaleWeek3':
+                    elif n[x]=='KaleWeek3':
                         num_ids.append(2)
                     print("SUCCESS")
                 except:
