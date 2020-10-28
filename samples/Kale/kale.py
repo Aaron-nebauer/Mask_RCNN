@@ -140,13 +140,13 @@ class BalloonDataset(utils.Dataset):
             three = "kaleWeek3"
             
             for n in objects:
-                '''print("What n is: ",n)
+                print("What n is: ",n)
                 print(type(n))
                 for x in n:
-                    print("x: ",x)
+                    #print("x: ",x)
                     y = n[x]
-                    print("y: ",type(y))
-                    two = "KaleWeek2"
+                    print("y: ",y)
+                    '''two = "KaleWeek2"
                     three = "KaleWeek3"
                     if y == two:
                         print("KALEWEEK2")
@@ -154,14 +154,15 @@ class BalloonDataset(utils.Dataset):
                         print("KALEWEEK3")
                     else:
                         print("NO WEEK")'''
-                if n[x]==two:
-                    num_ids.append(1)
-                    print("SUCCESS")
-                elif n[x]==three:
-                    num_ids.append(2)
-                    print("SUCCESS")
-                else:
-                    print("PASS")
+                    
+                    if n[x]==two:
+                        num_ids.append(1)
+                        print("SUCCESS")
+                    elif n[x]==three:
+                        num_ids.append(2)
+                        print("SUCCESS")
+                    else:
+                        print("PASS")
 
 
             
