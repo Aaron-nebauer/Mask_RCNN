@@ -146,7 +146,8 @@ class BalloonDataset(utils.Dataset):
                         num_ids.append(2)
                 except:
                     pass
-        	print("Num ids: ",num_ids)
+            
+            print("Num ids: ",num_ids)
         #num_ids = [int(n['object_name']) for n in objects]
 
             # load_mask() needs the image size to convert polygons to masks.
@@ -179,7 +180,7 @@ class BalloonDataset(utils.Dataset):
         if info["source"] != "KaleWeek":
             return super(self.__class__, self).load_mask(image_id)
         num_ids = info['num_ids']
-        print("Load Mask num ids: "num_ids)
+        print("Load Mask num ids: ", num_ids)
 
         # Convert polygons to a bitmap mask of shape
         # [height, width, instance_count]
