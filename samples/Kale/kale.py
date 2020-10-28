@@ -134,18 +134,19 @@ class BalloonDataset(utils.Dataset):
 
             #Get the name of the class id
             objects = [s['region_attributes'] for s in a['regions']]
-
+            print("Objects: ",objects)
             num_ids=[]
             for n in objects:
                 print("What n is: ",n)
                 print(type(n))
-                try:
-                    if n['KaleWeek']=='KaleWeek2':
-                        num_ids.append(1)
-                    elif n['KaleWeek']=='KaleWeek3':
-                        num_ids.append(2)
-                except:
-                    print("PASS")
+                
+                if n['KaleWeek']=='KaleWeek2':
+                    num_ids.append(1)
+                elif n['KaleWeek']=='KaleWeek3':
+                    num_ids.append(2)
+                for x in n:
+                    print("x: ",x)
+
 
             
             print("Num ids: ",num_ids)
