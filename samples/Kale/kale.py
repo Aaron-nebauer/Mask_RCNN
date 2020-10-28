@@ -143,9 +143,11 @@ class BalloonDataset(utils.Dataset):
                     print("x: ",x)
                     y = n[x]
                     print("y: ",type(y))
-                    if y == "KaleWeek2":
+                    two = "KaleWeek2"
+                    three = "KaleWeek3"
+                    if y == two:
                         print("KALEWEEK2")
-                    elif y == "KaleWeek3":
+                    elif y == three:
                         print("KALEWEEK3")
                     else:
                         print("NO WEEK")
