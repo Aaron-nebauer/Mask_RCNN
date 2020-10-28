@@ -145,7 +145,8 @@ class BalloonDataset(utils.Dataset):
                     elif n['KaleWeek']=='KaleWeek3':
                         num_ids.append(2)
                 except:
-                    pass
+                    print("PASS")
+
             
             print("Num ids: ",num_ids)
         #num_ids = [int(n['object_name']) for n in objects]
