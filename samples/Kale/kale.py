@@ -136,8 +136,10 @@ class BalloonDataset(utils.Dataset):
             objects = [s['region_attributes'] for s in a['regions']]
             print("Objects: ",objects)
             num_ids=[]
+            two = "KaleWeek2"
+            three = "KaleWeek3"
             for n in objects:
-                print("What n is: ",n)
+                '''print("What n is: ",n)
                 print(type(n))
                 for x in n:
                     print("x: ",x)
@@ -150,16 +152,15 @@ class BalloonDataset(utils.Dataset):
                     elif y == three:
                         print("KALEWEEK3")
                     else:
-                        print("NO WEEK")
+                        print("NO WEEK")'''
                 try:
-                    if n[x]=='KaleWeek2':
+                    if n[x]==two:
                         num_ids.append(1)
-                    elif n[x]=='KaleWeek3':
+                    elif n[x]==three:
                         num_ids.append(2)
                     print("SUCCESS")
                 except:
                     print("PASS")
-                    num_ids.append(1)
 
 
             
@@ -210,10 +211,10 @@ class BalloonDataset(utils.Dataset):
 
         # Return mask, and array of class IDs of each instance. Since we have
         # one class ID only, we return an array of 1s
-        #num_ids = np.array(num_ids, dtype=np.int32)
+        num_ids = np.array(num_ids, dtype=np.int32)
         #return mask, num_ids
-
-        return mask.astype(np.bool), np.ones([mask.shape[-1]], dtype=np.int32)
+        print("LAST load mask num ids:", num_ids)
+        return mask.astype(np.bool), num_ids
 
     def image_reference(self, image_id):
         """Return the path of the image."""
