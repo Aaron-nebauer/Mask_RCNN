@@ -1,6 +1,6 @@
 """
 Mask R-CNN
-Train on the toy Balloon dataset and implement color splash effect.
+Train on the toy kale dataset and implement color splash effect.
 
 Copyright (c) 2018 Matterport, Inc.
 Licensed under the MIT License (see LICENSE for details)
@@ -12,19 +12,19 @@ Usage: import the module (see Jupyter notebooks for examples), or run from
        the command line as such:
 
     # Train a new model starting from pre-trained COCO weights
-    python3 balloon.py train --dataset=/path/to/balloon/dataset --weights=coco
+    python3 kale.py train --dataset=/path/to/kale/dataset --weights=coco
 
     # Resume training a model that you had trained earlier
-    python3 balloon.py train --dataset=/path/to/balloon/dataset --weights=last
+    python3 kale.py train --dataset=/path/to/kale/dataset --weights=last
 
     # Train a new model starting from ImageNet weights
-    python3 balloon.py train --dataset=/path/to/balloon/dataset --weights=imagenet
+    python3 kale.py train --dataset=/path/to/kale/dataset --weights=imagenet
 
     # Apply color splash to an image
-    python3 balloon.py splash --weights=/path/to/weights/file.h5 --image=<URL or path to file>
+    python3 kale.py splash --weights=/path/to/weights/file.h5 --image=<URL or path to file>
 
     # Apply color splash to video using the last weights you trained
-    python3 balloon.py splash --weights=last --video=<URL or path to file>
+    python3 kale.py splash --weights=last --video=<URL or path to file>
 """
 
 import os
@@ -57,7 +57,7 @@ DEFAULT_LOGS_DIR = os.path.join(ROOT_DIR, "logs")
 ############################################################
 
 
-class BalloonConfig(Config):
+class KaleConfig(Config):
     """Configuration for training on the toy  dataset.
     Derives from the base Config class and overrides some values.
     """
@@ -82,10 +82,10 @@ class BalloonConfig(Config):
 #  Dataset
 ############################################################
 
-class BalloonDataset(utils.Dataset):
+class KaleDataset(utils.Dataset):
 
-    def load_balloon(self, dataset_dir, subset):
-        """Load a subset of the Balloon dataset.
+    def load_kale(self, dataset_dir, subset):
+        """Load a subset of the kale dataset.
         dataset_dir: Root directory of the dataset.
         subset: Subset to load: train or val
         """
@@ -134,40 +134,23 @@ class BalloonDataset(utils.Dataset):
 
             #Get the name of the class id
             objects = [s['region_attributes'] for s in a['regions']]
-            print("Objects: ",objects)
+            #print("Objects: ",objects)
             num_ids=[]
             two = "kaleWeek2"
             three = "kaleWeek3"
             
+            #Assign the correct class number to each object
             for n in objects:
-                print("What n is: ",n)
-                print(type(n))
+                #print("What n is: ",n)
+                #print(type(n))
                 for x in n:
-                    #print("x: ",x)
-                    y = n[x]
-                    print("y: ",y)
-                    '''two = "KaleWeek2"
-                    three = "KaleWeek3"
-                    if y == two:
-                        print("KALEWEEK2")
-                    elif y == three:
-                        print("KALEWEEK3")
-                    else:
-                        print("NO WEEK")'''
                     
                     if n[x]==two:
                         num_ids.append(1)
-                        print("SUCCESS")
                     elif n[x]==three:
                         num_ids.append(2)
-                        print("SUCCESS")
                     else:
                         print("PASS")
-
-
-            
-            print("Num ids: ",num_ids)
-        #num_ids = [int(n['object_name']) for n in objects]
 
             # load_mask() needs the image size to convert polygons to masks.
             # Unfortunately, VIA doesn't include it in JSON, so we must read
@@ -194,7 +177,7 @@ class BalloonDataset(utils.Dataset):
             one mask per instance.
         class_ids: a 1D array of class IDs of the instance masks.
         """
-        # If not a balloon dataset image, delegate to parent class.
+        # If not a kale dataset image, delegate to parent class.
         info = self.image_info[image_id]
         if info["source"] != "KaleWeek":
             return super(self.__class__, self).load_mask(image_id)
@@ -230,13 +213,13 @@ class BalloonDataset(utils.Dataset):
 def train(model):
     """Train the model."""
     # Training dataset.
-    dataset_train = BalloonDataset()
-    dataset_train.load_balloon(args.dataset, "train")
+    dataset_train = KaleDataset()
+    dataset_train.load_kale(args.dataset, "train")
     dataset_train.prepare()
 
     # Validation dataset
-    dataset_val = BalloonDataset()
-    dataset_val.load_balloon(args.dataset, "val")
+    dataset_val = KaleDataset()
+    dataset_val.load_kale(args.dataset, "val")
     dataset_val.prepare()
 
     # *** This training schedule is an example. Update to your needs ***
@@ -331,13 +314,13 @@ if __name__ == '__main__':
 
     # Parse command line arguments
     parser = argparse.ArgumentParser(
-        description='Train Mask R-CNN to detect balloons.')
+        description='Train Mask R-CNN to detect kale.')
     parser.add_argument("command",
                         metavar="<command>",
                         help="'train' or 'splash'")
     parser.add_argument('--dataset', required=False,
                         metavar=DATASET_PATH,
-                        help='Directory of the Balloon dataset')
+                        help='Directory of the kale dataset')
     parser.add_argument('--weights', required=False,
                         metavar=COCO_WEIGHTS_PATH,
                         help="Path to weights .h5 file or 'coco'")
@@ -366,9 +349,9 @@ if __name__ == '__main__':
 
     # Configurations
     if args.command == "train":
-        config = BalloonConfig()
+        config = KaleConfig()
     else:
-        class InferenceConfig(BalloonConfig):
+        class InferenceConfig(KaleConfig):
             # Set batch size to 1 since we'll be running inference on
             # one image at a time. Batch size = GPU_COUNT * IMAGES_PER_GPU
             GPU_COUNT = 1
